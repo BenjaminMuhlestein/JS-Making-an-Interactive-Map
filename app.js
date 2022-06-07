@@ -32,7 +32,7 @@ marker.addTo(myMap).bindPopup('<p1><b>The Hoxton, Paris</b></p1>').openPopup()
 
 // map object 
 let mymap = {
-	coordinates: [],
+	coordinates: [36.5388869],
 	buuesiness: [],
 	map: [],
 	markers: [], 
@@ -49,11 +49,13 @@ let mymap = {
     L.tileLayer('https://.tile.openstreetmap.org///.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     minZoom: '15',
-     }).addTo(myMap)
+     }).addTo(this.map);
      let marker = L.marker(this.coordinates)
-	 .addTo(this.map)
+	 .addTo(this.map).bindPopup('<p1><b>Your Location!</b></p1>').openPopup()
 
-	}
+	},
+
+	
 
 }
 async function getCoords(){
@@ -62,4 +64,11 @@ async function getCoords(){
     })
     return [pos.coords.latitude, pos.coords.longitude]
 }
-async 
+
+
+window.onload = async () => {
+      let coords = await getCoords()
+	  myMap.coordinates = coords
+	  myMap.buildmap()
+
+}
